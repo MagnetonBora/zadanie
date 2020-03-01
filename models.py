@@ -2,11 +2,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, Sequence, BigInteger, DateTime, Time, create_engine
 
+
 engine = create_engine('sqlite:///:memory:', echo=True)
 Base = declarative_base()
 
+
 class Administrator(Base):
-    __tablename__ = "Administrator"
+    __tablename__ = "administrators"
+
     staff_id = Column(Integer, Sequence("staff_id_seq"), primary_key = "TRU")
     department_id = Column(Integer, Sequence("department_id_seq"))
     enrollment_date = Column(DateTime, Sequence("enrolment_date_id"))
@@ -14,8 +17,10 @@ class Administrator(Base):
     def __repr__(self):
         return f"Administrator({self.staff_id}, {self.department_id}, {self.enrollment_date})"
 
+
 class Students(Base):
-    __tablename__ = 'Students'
+    __tablename__ = 'students'
+
     id = Column(Integer, Sequence("id_seq"), primary_key=True)
     fist_name = Column(String(50), Sequence("first_name_seq"))
     last_name = Column(String(50), Sequence("first_name_seq"))
@@ -29,7 +34,8 @@ class Students(Base):
 
 
 class StudentsGrade:
-    __tablename__ = "StudentsGrade"
+    __tablename__ = "students_grades"
+
     enrollment_id = Column(Integer, Sequence("enrollment_id_seq"), primary_key = True)
     student_id = Column(Integer, Sequence("student_id_seq"))
     course_id = Column(Integer, Sequence("course_id_seq"))
@@ -38,8 +44,10 @@ class StudentsGrade:
     def __repr__(self):
         return f"StudentGrade({self.enrollment_id}, {self.student_id}, {self.course_id}, {self.grade})"
 
+
 class Department:
-    __tablename__ = "Department"
+    __tablename__ = "departments"
+
     id = Column(Integer, Sequence("id_seq"), primary_key=True)
     name = Column(String(50), Sequence("name_seq"))
     budget = Column(Integer, Sequence("budget_seq"))
@@ -50,7 +58,8 @@ class Department:
 
 
 class Staff:
-    __tablename__ = "Staff"
+    __tablename__ = "staff"
+
     id = Column(Integer, Sequence("id_seq"), primary_key=True)
     first_name = Column(String(50), Sequence("first_name_seq"))
     last_name = Column(String(50), Sequence("first_name_seq"))
@@ -62,8 +71,10 @@ class Staff:
         return f"User({self.id}, {self.first_name}, {self.last_name}," \
                f" {self.pesel}, {self.phone}, {self.adres})"
 
+
 class Course:
-    __tablename__ = "Course"
+    __tablename__ = "course"
+
     course_id = Column(Integer, Sequence("course_id_seq"), primary_key = True)
     title = Column(String(50), Sequence("title_id"))
     credits = Column(Integer, Sequence("credits_id"))
@@ -78,7 +89,8 @@ class Course:
 
 
 class CourseInstructor:
-    __tablename__ = "CourseInstructor"
+    __tablename__ = "course_instructors"
+
     course_id = Column(Integer, Sequence("course_id_seq"), primary_key = True)
     staff_id = Column(Integer, Sequence("staff_id_seq"))
     enrollment_date = Column(DateTime, Sequence("enrollment_date"))
@@ -88,7 +100,8 @@ class CourseInstructor:
 
 
 class OnlineCourse:
-    __tablename__ = "OnlineCourse"
+    __tablename__ = "online_courses"
+
     course_id = Column(Integer, Sequence("course_id_seq"))
     url = Column(String(50), Sequence("url_seq"))
 
@@ -97,7 +110,8 @@ class OnlineCourse:
 
 
 class OnsiteCourse:
-    __tablename__ = "OnsiteCourse"
+    __tablename__ = "onsite_courses"
+
     course_id = Column(Integer, Sequence("course_id_seq"))
     adress = Column(String(45), Sequence("adress_seq"))
     days = Column(String(45), Sequence("days_seq"))
@@ -112,4 +126,3 @@ if __name__ == '__main__':
     mateusz = Administrator(staff_id = "666", department_id = "5", enrollment_date = "22")
     session.add(mateusz)
     session.query(Administrator).all()
-

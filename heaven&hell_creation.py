@@ -1,5 +1,6 @@
 import sqlalchemy
 
+
 class HeavenAndHellDatabase:
 
     def __init__(self, engine, queries, table):
@@ -10,4 +11,3 @@ class HeavenAndHellDatabase:
     def create_table(self, engine, queries):
         for query in self.queries:
             engine.execute(query)
-
